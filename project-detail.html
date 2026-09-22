@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study | 3D Visualization</title>
+  <meta name="description" content="Detailed case study, topology breakdown, and clay vs render comparison.">
+
+  <!-- Anti-cache meta tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doppio+One&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/design-system.css?v=7.0">
+  <link rel="stylesheet" href="css/main.css?v=7.0">
+  <link rel="stylesheet" href="css/components.css?v=7.0">
+  <link rel="stylesheet" href="css/tools.css?v=7.0">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container container-wide">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+          <div class="brand-title">
+            <span class="brand-name">MUSTAFA JAMAL</span>
+            <span class="brand-tag">3D Studio & Tools</span>
+          </div>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="portfolio.html" class="nav-link">Portfolio</a>
+          
+          <!-- Services Dropdown -->
+          <div class="nav-dropdown-wrapper">
+            <a href="services.html" class="nav-link nav-dropdown-trigger" id="navServicesTrigger">
+              <span>Services</span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <div class="nav-dropdown-menu">
+              <div class="dropdown-col">
+                <div class="dropdown-col-title">
+                  <span>What I Deliver</span>
+                  <span class="nav-badge-new">8 Services</span>
+                </div>
+                <div class="services-subgrid">
+                  <!-- Col 1: Services 1 to 4 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-product" class="dropdown-item">
+                      <span class="dropdown-item-icon">🛒</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">1. Product Modeling</span>
+                        <span class="dropdown-item-desc">Studio renders &amp; packshots</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-ecommerce" class="dropdown-item">
+                      <span class="dropdown-item-icon">📦</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">2. E-Commerce &amp; Amazon</span>
+                        <span class="dropdown-item-desc">Listing hero &amp; infographics</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-furniture" class="dropdown-item">
+                      <span class="dropdown-item-icon">🪑</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3. Furniture Archviz</span>
+                        <span class="dropdown-item-desc">Interior lifestyle staging</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-motion" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎬</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">4. Marketing Visuals</span>
+                        <span class="dropdown-item-desc">Commercial 3D motion</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- Col 2: Services 5 to 8 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-ar" class="dropdown-item">
+                      <span class="dropdown-item-icon">📱</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">5. AR-Ready 3D Assets</span>
+                        <span class="dropdown-item-desc">WebAR &amp; GLB / USDZ models</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-printing" class="dropdown-item">
+                      <span class="dropdown-item-icon">🖨️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">6. 3D Print & Prototyping</span>
+                        <span class="dropdown-item-desc">Watertight STL manufacturing</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-realtime" class="dropdown-item">
+                      <span class="dropdown-item-icon">⚡</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">7. Real-Time &amp; Optimization</span>
+                        <span class="dropdown-item-desc">Retopology &amp; PBR baking</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-game" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎮</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">8. Game Assets</span>
+                        <span class="dropdown-item-desc">Modular props &amp; environments</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-col">
+                <div class="dropdown-tools-highlight">
+                  <div class="dropdown-col-title">
+                    <span>Free 3D Tools</span>
+                    <span class="nav-badge-new">3 Free</span>
+                  </div>
+                  <div class="dropdown-links-list">
+                    <a href="viewer.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">👁️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3D & AR Viewer</span>
+                        <span class="dropdown-item-desc">Inspect & AR preview models</span>
+                      </div>
+                    </a>
+                    <a href="converter.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🔄</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">GLTF ↔ GLB Converter</span>
+                        <span class="dropdown-item-desc">100% Client-side packaging</span>
+                      </div>
+                    </a>
+                    <a href="texture-tool.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎨</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">Normal Map Generator</span>
+                        <span class="dropdown-item-desc">Create normal & roughness maps</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="about.html" class="nav-link">About & Stack</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Language Selector Dropdown -->
+          <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+            <button class="lang-btn" id="langToggleBtn" type="button" aria-label="Select Language" aria-expanded="false" aria-haspopup="true">
+              <svg class="lang-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="lang-current" id="langCurrentCode">EN</span>
+              <svg class="lang-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="lang-dropdown-menu" id="langDropdownMenu" role="listbox" aria-label="Languages">
+              <a href="?lang=en" class="lang-option-item active" data-lang="en" role="option" aria-selected="true">
+                <span class="lang-flag">🇺🇸</span>
+                <span class="lang-label">English</span>
+                <span class="lang-badge">EN</span>
+              </a>
+              <a href="?lang=ar" class="lang-option-item" data-lang="ar" role="option" aria-selected="false" dir="rtl">
+                <span class="lang-flag">🇸🇦</span>
+                <span class="lang-label">العربية</span>
+                <span class="lang-badge">AR</span>
+              </a>
+              <a href="?lang=de" class="lang-option-item" data-lang="de" role="option" aria-selected="false">
+                <span class="lang-flag">🇩🇪</span>
+                <span class="lang-label">Deutsch</span>
+                <span class="lang-badge">DE</span>
+              </a>
+              <a href="?lang=it" class="lang-option-item" data-lang="it" role="option" aria-selected="false">
+                <span class="lang-flag">🇮🇹</span>
+                <span class="lang-label">Italiano</span>
+                <span class="lang-badge">IT</span>
+              </a>
+              <a href="?lang=fr" class="lang-option-item" data-lang="fr" role="option" aria-selected="false">
+                <span class="lang-flag">🇫🇷</span>
+                <span class="lang-label">Français</span>
+                <span class="lang-badge">FR</span>
+              </a>
+              <a href="?lang=tr" class="lang-option-item" data-lang="tr" role="option" aria-selected="false">
+                <span class="lang-flag">🇹🇷</span>
+                <span class="lang-label">Türkçe</span>
+                <span class="lang-badge">TR</span>
+              </a>
+              <a href="?lang=zh" class="lang-option-item" data-lang="zh" role="option" aria-selected="false">
+                <span class="lang-flag">🇨🇳</span>
+                <span class="lang-label">中文</span>
+                <span class="lang-badge">ZH</span>
+              </a>
+              <a href="?lang=es" class="lang-option-item" data-lang="es" role="option" aria-selected="false">
+                <span class="lang-flag">🇪🇸</span>
+                <span class="lang-label">Español</span>
+                <span class="lang-badge">ES</span>
+              </a>
+            </div>
+          </div>
+
+          <a href="contact.html" class="btn btn-primary btn-sm" id="headerHireMeBtn">
+            <span>Get a Quote</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <nav class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html" class="active">Portfolio Showcase</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About & Studio Pipeline</a>
+      <a href="contact.html">Request a Project</a>
+    </nav>
+  </div>
+
+  <main>
+    <article class="section" style="padding-top: var(--space-2xl);">
+      <div class="container container-wide">
+        <!-- Breadcrumb & Direct Action Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: var(--space-lg);">
+          <a href="portfolio.html" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to All Projects</span>
+          </a>
+          <button type="button" class="btn btn-primary btn-sm open-commission-btn" id="openCommissionTopBtn" style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            <span>Commission Similar 3D Assets</span>
+          </button>
+        </div>
+
+        <!-- Project Hero Header -->
+        <div style="margin-bottom: var(--space-2xl);">
+          <span class="badge badge-gold" id="projectCategory" style="margin-bottom: 0.75rem;">Category</span>
+          <h1 class="hero-title" id="projectTitle" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 1rem;">Project Title</h1>
+          <p class="hero-description" id="projectDescription" style="max-width: 820px; font-size: 1.15rem;">Project overview and commercial background.</p>
+        </div>
+
+        <!-- Dedicated Uncropped 3D Hero Render Stage -->
+        <div id="projectHeroStage" class="hero-render-stage" style="margin-bottom: var(--space-3xl);">
+          <img class="hero-backdrop-blur" id="projectHeroBackdrop" src="" alt="" aria-hidden="true" />
+          <a id="projectHeroZoomLink" href="#" target="_blank" rel="noopener noreferrer" style="display: block; position: relative; z-index: 2; line-height: 0;">
+            <img class="hero-render-img" id="projectHeroImg" src="" alt="3D Visualization Master Render" />
+          </a>
+          <a id="projectHeroZoomBadge" href="#" target="_blank" rel="noopener noreferrer" class="hero-zoom-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            <span>View Full Resolution</span>
+          </a>
+        </div>
+
+        <!-- Video Showcase (for Animation / Motion / AR 360° Turntables) -->
+        <div id="projectVideoContainer" style="display: none; max-width: 960px; margin: 0 auto var(--space-3xl);">
+          <div id="projectVideoFrame" style="background: #000; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-medium); box-shadow: 0 20px 50px rgba(0,0,0,0.55); position: relative; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;">
+            <video id="projectVideoPlayer" controls autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: contain; display: block; background: #000;">
+              <source id="projectVideoSource" src="" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+
+          <!-- Multi-Video 360° Turntable Switcher -->
+          <div id="turntableSwitcherContainer" style="display: none; margin-top: 1.25rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+              <span>Select 360° Turntable Reel to Inspect:</span>
+            </div>
+            <div id="turntableTabsList" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+              <!-- Turntable pills populated dynamically -->
+            </div>
+          </div>
+
+          <div id="singleVideoNotice" style="text-align: center; margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <span>&bull; Commercial 3D Motion Reel &bull; High-Definition Render Output &bull;</span>
+          </div>
+        </div>
+
+        <!-- Comparison Slider / Visual Centerpiece (When clay pass is available) -->
+        <div id="projectComparisonContainer" style="display: none; margin-bottom: var(--space-3xl);">
+          <div class="comparison-slider" id="comparisonSlider">
+            <img class="slider-img slider-img-before" id="sliderBeforeImg" src="" alt="Photorealistic Render" />
+            <div class="slider-img-after-wrapper" id="sliderAfterWrapper">
+              <img class="slider-img" id="sliderAfterImg" src="" alt="Clay / Wireframe Topology" />
+            </div>
+            <div class="slider-handle" id="sliderHandle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+            <span class="slider-label slider-label-after">Wireframe / Clay Pass</span>
+            <span class="slider-label slider-label-before">Final 8K Render</span>
+          </div>
+          <div id="sliderDragNotice" style="text-align: center; margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <span>&larr; Drag slider left and right to inspect wireframe and surface topology &rarr;</span>
+          </div>
+        </div>
+
+
+        <!-- High-Resolution Gallery & Additional Angles -->
+        <div id="projectGallerySection" style="display: none; margin-top: var(--space-3xl);">
+          <div class="section-header" style="margin-bottom: var(--space-xl); text-align: left;">
+            <span class="section-tag">High-Resolution Showcase</span>
+            <h2 class="section-title" style="font-size: 1.8rem;">Additional Angles, Wireframes & Close-ups</h2>
+          </div>
+          <div id="projectGalleryGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-xl);">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Dedicated Bottom Commission Action Card -->
+        <div class="glass-panel" style="margin-top: var(--space-3xl); margin-bottom: var(--space-xl); padding: var(--space-2xl); text-align: center; border-color: rgba(16, 185, 129, 0.25); background: radial-gradient(circle at center, rgba(16, 185, 129, 0.07) 0%, rgba(14, 17, 25, 0.96) 100%);">
+          <span class="badge badge-gold" style="margin-bottom: 0.75rem;">Direct Commercial Collaboration</span>
+          <h3 style="font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+            Commission Similar 3D Assets for Your Brand
+          </h3>
+          <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 1.5rem; font-size: 0.98rem; line-height: 1.7;">
+            Need commercial 3D product visualizations, hero marketing stills, animations, or interactive WebAR models of this exact caliber? Connect with me directly to initiate your project.
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary btn-lg open-commission-btn" id="openCommissionBottomBtn" style="display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+              <span>Commission Similar 3D Assets</span>
+            </button>
+            <a href="portfolio.html" class="btn btn-secondary btn-lg">
+              <span>Explore More Projects</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Interactive Full-Resolution Lightbox Modal -->
+  <div class="modal-overlay" id="projectLightboxModal" style="z-index: 999999; padding: 1rem;">
+    <div style="position: relative; max-width: 95vw; max-height: 95vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <button class="modal-close-btn" id="closeLightboxBtn" aria-label="Close Lightbox" style="position: absolute; top: -50px; right: 0; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; cursor: pointer;">&times;</button>
+      <img id="lightboxImg" src="" alt="Full Resolution 3D Render" style="max-width: 92vw; max-height: 84vh; object-fit: contain; border-radius: var(--radius-md); box-shadow: 0 25px 60px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.15); display: block;" />
+      <div style="margin-top: 1rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+        <span id="lightboxCaption" style="font-size: 0.9rem; color: var(--text-secondary);"></span>
+        <a id="lightboxOpenFull" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Open Uncompressed 4K</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Commission & Direct Channels Modal -->
+  <div class="modal-overlay" id="commissionModal" style="z-index: 999999; padding: 1.25rem;">
+    <div class="modal-dialog" style="max-width: 650px; background: rgba(14, 17, 25, 0.98); border: 1px solid rgba(16, 185, 129, 0.35); box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 35px rgba(16, 185, 129, 0.16);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1rem;">
+        <div>
+          <span class="badge badge-gold" style="margin-bottom: 0.35rem;">Direct Studio Collaboration</span>
+          <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0;">Commission Similar 3D Assets</h2>
+          <p id="commissionModalRef" style="font-size: 0.88rem; color: #10b981; margin-top: 0.3rem; font-weight: 500;">Project Reference: ...</p>
+        </div>
+        <button class="modal-close-btn" id="closeCommissionModalBtn" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+        <!-- Option 1: Direct Email -->
+        <a id="commissionEmailBtn" href="#" class="glass-panel" style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; text-decoration: none; border-color: rgba(255,255,255,0.08); transition: all 0.25s ease;" onmouseover="this.style.borderColor='rgba(16,185,129,0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)'">
+          <div style="display: flex; align-items: center; gap: 0.9rem;">
+            <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; color: #10b981; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: #fff; font-size: 0.98rem;">Send Direct Email (Instant)</div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">mustafagamal.3d@gmail.com &bull; Pre-formatted project brief</div>
+            </div>
+          </div>
+          <span class="btn btn-secondary btn-sm" style="pointer-events: none;">Send Email &rarr;</span>
+        </a>
+
+        <!-- Option 2: LinkedIn -->
+        <a href="https://www.linkedin.com/in/mustafa-jamal-85905423b" target="_blank" rel="noopener noreferrer" class="glass-panel" style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; text-decoration: none; border-color: rgba(255,255,255,0.08); transition: all 0.25s ease;" onmouseover="this.style.borderColor='rgba(56,189,248,0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)'">
+          <div style="display: flex; align-items: center; gap: 0.9rem;">
+            <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: #fff; font-size: 0.98rem;">Message on LinkedIn</div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">Direct messaging & professional networking</div>
+            </div>
+          </div>
+          <span class="btn btn-secondary btn-sm" style="pointer-events: none;">Connect &rarr;</span>
+        </a>
+
+        <!-- Option 3: WhatsApp Direct -->
+        <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="glass-panel" style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; text-decoration: none; border-color: rgba(255,255,255,0.08); transition: all 0.25s ease;" onmouseover="this.style.borderColor='rgba(37,211,102,0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)'">
+          <div style="display: flex; align-items: center; gap: 0.9rem;">
+            <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 6px;">
+              <img src="assets/images/social/whatsapp.png" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div>
+              <div style="font-weight: 700; color: #fff; font-size: 0.98rem;">Chat on WhatsApp</div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">Direct messaging & instant project discussion</div>
+            </div>
+          </div>
+          <span class="btn btn-secondary btn-sm" style="pointer-events: none;">Chat Now &rarr;</span>
+        </a>
+
+        <!-- Option 4: Full Quotation Form -->
+        <a id="commissionFormBtn" href="contact.html" class="glass-panel" style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; text-decoration: none; border-color: rgba(255,255,255,0.08); transition: all 0.25s ease;" onmouseover="this.style.borderColor='rgba(16,185,129,0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(0)'">
+          <div style="display: flex; align-items: center; gap: 0.9rem;">
+            <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; color: #10b981; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: #fff; font-size: 0.98rem;">Open Project Quotation Form</div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">Pre-fills this project reference &bull; 24h custom quote turnaround</div>
+            </div>
+          </div>
+          <span class="btn btn-primary btn-sm" style="pointer-events: none;">Fill Form &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+            <div class="brand-title">
+              <span class="brand-name">MUSTAFA JAMAL</span>
+              <span class="brand-tag">3D Studio & Tools</span>
+            </div>
+          </a>
+          <p>
+            3D visualization studio creating production-ready assets for product launches, e-commerce, AR, and real-time applications.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://www.linkedin.com/in/mustafa-jamal-85905423b" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <img src="assets/images/social/linkedin.png" alt="LinkedIn" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://www.behance.net/Mustafagamal3D" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Behance" title="Behance">
+              <img src="assets/images/social/behance.png" alt="Behance" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="WhatsApp" title="WhatsApp">
+              <img src="assets/images/social/whatsapp.png" alt="WhatsApp" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="mailto:mustafagamal.3d@gmail.com" class="social-icon-btn" aria-label="Email" title="Email">
+              <img src="assets/images/social/email.png" alt="Email" width="22" height="22" class="social-icon-img">
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio Showcase</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="tools.html">Free 3D Tools</a></li>
+            <li><a href="about.html">About & Pipeline</a></li>
+            <li><a href="contact.html">Request a Quote</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Free 3D Tools</h4>
+          <ul class="footer-links">
+            <li><a href="viewer.html">3D & AR Viewer</a></li>
+            <li><a href="converter.html">GLTF ↔ GLB Packager</a></li>
+            <li><a href="texture-tool.html">Normal Map Generator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Client Inquiries</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Ready to discuss your project specifications? Response within 24 hours.
+          </p>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="width: 100%;">
+            Start Project Request
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="currentYear">2026</span> Mustafa Jamal. All Rights Reserved. Built with 100% Client-Side WebGL Architecture.
+        </div>
+        <div>
+          Hosted on Cloudflare Pages &bull; Zero Server Footprint
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/portfolio-data.js?v=7.0"></script>
+  <script src="js/i18n.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
+  <script src="js/project-detail.js?v=7.0"></script>
+  <!-- Floating Quick Contact Speed Dial (Logos Only) -->
+  <div class="floating-contact-widget" id="floatingContactWidget">
+    
+    <!-- Action Icons Stack (Logos Only - Vertical Alignment) -->
+    <div class="floating-contact-items" id="floatingContactItems" style="position: absolute; bottom: 68px; right: 1px; display: none; flex-direction: column; align-items: center; gap: 12px; z-index: 99999999;">
+      <!-- Phone Call -->
+      <a href="tel:+201092438320" class="floating-contact-btn btn-phone" aria-label="Call Mobile" title="Call: +20 109 243 8320" style="width: 52px; height: 52px; border-radius: 50%; background: #46e88d; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(70, 232, 141, 0.45); text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/>
+        </svg>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="floating-contact-btn btn-whatsapp" aria-label="WhatsApp" title="WhatsApp: +20 120 355 1756" style="width: 52px; height: 52px; border-radius: 50%; background: #61e774; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(97, 231, 116, 0.45); text-decoration: none;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.63C8.75 21.41 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM16.63 15.71C16.44 16.24 15.69 16.67 15.08 16.74C14.67 16.79 14.13 16.82 12.31 16.07C10.01 15.11 8.52 12.78 8.4 12.63C8.29 12.48 7.45 11.36 7.45 10.2C7.45 9.04 8.04 8.47 8.28 8.23C8.48 8.03 8.75 7.95 9.01 7.95C9.1 7.95 9.18 7.95 9.25 7.96C9.47 7.97 9.58 7.98 9.72 8.32C9.9 8.75 10.33 9.81 10.39 9.92C10.44 10.03 10.49 10.17 10.42 10.32C10.35 10.47 10.3 10.55 10.19 10.68C10.08 10.81 9.96 10.91 9.84 11.06C9.72 11.19 9.59 11.33 9.73 11.57C9.87 11.81 10.36 12.61 11.08 13.25C12.01 14.08 12.77 14.34 13.04 14.45C13.26 14.54 13.48 14.52 13.64 14.34C13.84 14.11 14.1 13.74 14.33 13.41C14.5 13.17 14.71 13.2 14.94 13.29C15.17 13.38 16.4 13.99 16.65 14.11C16.9 14.23 17.07 14.29 17.13 14.39C17.19 14.49 17.19 15.01 16.63 15.71Z"/>
+        </svg>
+      </a>
+
+      <!-- Direct Email -->
+      <a href="mailto:mustafagamal.3d@gmail.com" class="floating-contact-btn btn-email" aria-label="Email" title="Email: mustafagamal.3d@gmail.com" style="width: 52px; height: 52px; border-radius: 50%; background: #f63f62; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(246, 63, 98, 0.45); text-decoration: none;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M22 6L12 13L2 6"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Toggle Action (Pill + Circle Button) -->
+    <div style="position: relative; display: flex; align-items: center;">
+      <!-- Speech Bubble Pill: Contact us -->
+      <div id="floatingContactPill" class="floating-contact-pill" onclick="toggleFloatingContact(event)">
+        Contact us
+      </div>
+
+      <!-- Main Toggle Button -->
+      <button type="button" id="floatingToggleBtn" class="floating-toggle-btn" onclick="toggleFloatingContact(event)" aria-label="Toggle Quick Contact Options" title="Quick Contact">
+        <span id="floatingIconChat" style="display: flex; align-items: center; justify-content: center;">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 9H7v-2h10v2zm-4 4H7v-2h6v2zm4-8H7V5h10v2z"/>
+          </svg>
+        </span>
+        <span id="floatingIconClose" style="display: none; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function toggleFloatingContact(e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
+      var widget = document.getElementById('floatingContactWidget');
+      var items = document.getElementById('floatingContactItems');
+      var pill = document.getElementById('floatingContactPill');
+      var iconChat = document.getElementById('floatingIconChat');
+      var iconClose = document.getElementById('floatingIconClose');
+      
+      if (!widget || !items) return;
+      var isOpen = widget.classList.contains('is-open');
+      if (isOpen) {
+        widget.classList.remove('is-open');
+        items.style.display = 'none';
+        if (pill) pill.style.display = 'block';
+        if (iconChat) iconChat.style.display = 'flex';
+        if (iconClose) iconClose.style.display = 'none';
+      } else {
+        widget.classList.add('is-open');
+        items.style.display = 'flex';
+        items.style.opacity = '1';
+        items.style.visibility = 'visible';
+        items.style.pointerEvents = 'auto';
+        if (pill) pill.style.display = 'none';
+        if (iconChat) iconChat.style.display = 'none';
+        if (iconClose) iconClose.style.display = 'flex';
+      }
+    }
+    document.addEventListener('click', function(e) {
+      var w = document.getElementById('floatingContactWidget');
+      if (w && w.classList.contains('is-open') && !w.contains(e.target)) {
+        toggleFloatingContact(e);
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var w = document.getElementById('floatingContactWidget');
+        if (w && w.classList.contains('is-open')) {
+          toggleFloatingContact(e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

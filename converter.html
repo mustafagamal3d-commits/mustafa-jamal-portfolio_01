@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLTF to GLB Packager & Converter | Free 3D In-Browser Tool</title>
+  <meta name="description" content="Free client-side 3D converter. Merge loose .gltf files, .bin buffers, and textures into a single standalone .glb file, or extract any .glb into a ZIP archive.">
+
+  <!-- JSZip for Client-side ZIP generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doppio+One&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/design-system.css?v=7.0">
+  <link rel="stylesheet" href="css/main.css?v=7.0">
+  <link rel="stylesheet" href="css/components.css?v=7.0">
+  <link rel="stylesheet" href="css/tools.css?v=7.0">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container container-wide">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+          <div class="brand-title">
+            <span class="brand-name">MUSTAFA JAMAL</span>
+            <span class="brand-tag">3D Studio & Tools</span>
+          </div>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="portfolio.html" class="nav-link">Portfolio</a>
+          
+          <!-- Services Dropdown -->
+          <div class="nav-dropdown-wrapper">
+            <a href="services.html" class="nav-link nav-dropdown-trigger" id="navServicesTrigger">
+              <span>Services</span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <div class="nav-dropdown-menu">
+              <div class="dropdown-col">
+                <div class="dropdown-col-title">
+                  <span>What I Deliver</span>
+                  <span class="nav-badge-new">8 Services</span>
+                </div>
+                <div class="services-subgrid">
+                  <!-- Col 1: Services 1 to 4 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-product" class="dropdown-item">
+                      <span class="dropdown-item-icon">🛒</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">1. Product Modeling</span>
+                        <span class="dropdown-item-desc">Studio renders &amp; packshots</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-ecommerce" class="dropdown-item">
+                      <span class="dropdown-item-icon">📦</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">2. E-Commerce &amp; Amazon</span>
+                        <span class="dropdown-item-desc">Listing hero &amp; infographics</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-furniture" class="dropdown-item">
+                      <span class="dropdown-item-icon">🪑</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3. Furniture Archviz</span>
+                        <span class="dropdown-item-desc">Interior lifestyle staging</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-motion" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎬</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">4. Marketing Visuals</span>
+                        <span class="dropdown-item-desc">Commercial 3D motion</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- Col 2: Services 5 to 8 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-ar" class="dropdown-item">
+                      <span class="dropdown-item-icon">📱</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">5. AR-Ready 3D Assets</span>
+                        <span class="dropdown-item-desc">WebAR &amp; GLB / USDZ models</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-printing" class="dropdown-item">
+                      <span class="dropdown-item-icon">🖨️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">6. 3D Print & Prototyping</span>
+                        <span class="dropdown-item-desc">Watertight STL manufacturing</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-realtime" class="dropdown-item">
+                      <span class="dropdown-item-icon">⚡</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">7. Real-Time &amp; Optimization</span>
+                        <span class="dropdown-item-desc">Retopology &amp; PBR baking</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-game" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎮</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">8. Game Assets</span>
+                        <span class="dropdown-item-desc">Modular props &amp; environments</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-col">
+                <div class="dropdown-tools-highlight">
+                  <div class="dropdown-col-title">
+                    <span>Free 3D Tools</span>
+                    <span class="nav-badge-new">3 Free</span>
+                  </div>
+                  <div class="dropdown-links-list">
+                    <a href="viewer.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">👁️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3D & AR Viewer</span>
+                        <span class="dropdown-item-desc">Inspect & AR preview models</span>
+                      </div>
+                    </a>
+                    <a href="converter.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🔄</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">GLTF ↔ GLB Converter</span>
+                        <span class="dropdown-item-desc">100% Client-side packaging</span>
+                      </div>
+                    </a>
+                    <a href="texture-tool.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎨</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">Normal Map Generator</span>
+                        <span class="dropdown-item-desc">Create normal & roughness maps</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="about.html" class="nav-link">About & Stack</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Language Selector Dropdown -->
+          <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+            <button class="lang-btn" id="langToggleBtn" type="button" aria-label="Select Language" aria-expanded="false" aria-haspopup="true">
+              <svg class="lang-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="lang-current" id="langCurrentCode">EN</span>
+              <svg class="lang-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="lang-dropdown-menu" id="langDropdownMenu" role="listbox" aria-label="Languages">
+              <a href="?lang=en" class="lang-option-item active" data-lang="en" role="option" aria-selected="true">
+                <span class="lang-flag">🇺🇸</span>
+                <span class="lang-label">English</span>
+                <span class="lang-badge">EN</span>
+              </a>
+              <a href="?lang=ar" class="lang-option-item" data-lang="ar" role="option" aria-selected="false" dir="rtl">
+                <span class="lang-flag">🇸🇦</span>
+                <span class="lang-label">العربية</span>
+                <span class="lang-badge">AR</span>
+              </a>
+              <a href="?lang=de" class="lang-option-item" data-lang="de" role="option" aria-selected="false">
+                <span class="lang-flag">🇩🇪</span>
+                <span class="lang-label">Deutsch</span>
+                <span class="lang-badge">DE</span>
+              </a>
+              <a href="?lang=it" class="lang-option-item" data-lang="it" role="option" aria-selected="false">
+                <span class="lang-flag">🇮🇹</span>
+                <span class="lang-label">Italiano</span>
+                <span class="lang-badge">IT</span>
+              </a>
+              <a href="?lang=fr" class="lang-option-item" data-lang="fr" role="option" aria-selected="false">
+                <span class="lang-flag">🇫🇷</span>
+                <span class="lang-label">Français</span>
+                <span class="lang-badge">FR</span>
+              </a>
+              <a href="?lang=tr" class="lang-option-item" data-lang="tr" role="option" aria-selected="false">
+                <span class="lang-flag">🇹🇷</span>
+                <span class="lang-label">Türkçe</span>
+                <span class="lang-badge">TR</span>
+              </a>
+              <a href="?lang=zh" class="lang-option-item" data-lang="zh" role="option" aria-selected="false">
+                <span class="lang-flag">🇨🇳</span>
+                <span class="lang-label">中文</span>
+                <span class="lang-badge">ZH</span>
+              </a>
+              <a href="?lang=es" class="lang-option-item" data-lang="es" role="option" aria-selected="false">
+                <span class="lang-flag">🇪🇸</span>
+                <span class="lang-label">Español</span>
+                <span class="lang-badge">ES</span>
+              </a>
+            </div>
+          </div>
+
+          <a href="contact.html" class="btn btn-primary btn-sm" id="headerHireMeBtn">
+            <span>Get a Quote</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <nav class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio Showcase</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About & Studio Pipeline</a>
+      <a href="contact.html">Request a Project</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="section" style="padding-top: var(--space-xl);">
+      <div class="container container-wide">
+        <!-- Title & Info -->
+        <div style="margin-bottom: var(--space-2xl);">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <a href="tools.html" class="text-muted" style="font-size: 0.85rem;">Tools Hub</a>
+            <span class="text-muted">&bull;</span>
+            <span class="badge badge-gold">Tool #2</span>
+          </div>
+          <h1 style="font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--text-primary);">GLTF ↔ GLB Packager & Converter</h1>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 720px;">
+            Package multiple loose texture images (.png/.jpg) and .bin buffers into a single self-contained .glb binary file. Or extract any .glb into a downloadable ZIP archive.
+          </p>
+        </div>
+
+        <!-- Tool Workspace -->
+        <div class="tool-workspace converter-container">
+          <!-- Conversion Mode Tabs -->
+          <div class="converter-tabs">
+            <div class="converter-tab active" id="tabToGlb">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              <span>1. GLB Packer &amp; Texture Optimizer</span>
+              <span class="converter-tab-badge">STUDIO</span>
+            </div>
+            <div class="converter-tab" id="tabToGltf">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path><path d="M12 12v9"></path><path d="m8 17 4 4 4-4"></path></svg>
+              <span>2. GLB Unpacker (.glb &rarr; glTF + ZIP)</span>
+            </div>
+          </div>
+
+          <!-- Drop Area -->
+          <div class="converter-drop-area" id="converterDropArea">
+            <input type="file" id="converterFileInput" multiple accept=".gltf,.bin,.png,.jpg,.jpeg,.webp,.glb" style="display: none;" />
+            <div class="drop-icon-box">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <h3 class="drop-title" id="dropTitle" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Drag &amp; Drop .gltf + .bin + texture files or .glb</h3>
+            <p class="drop-subtitle" id="dropSubtitle" style="color: var(--text-secondary); font-size: 0.9rem; max-width: 540px;">
+              Package 3D models and optimize textures with WebP/JPEG compression. 100% private in-browser WebGL pipeline.
+            </p>
+            <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center;">
+              <button type="button" class="btn btn-primary btn-sm" id="browseFilesBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Select Files from Device</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="loadSampleConverterBtn">
+                <span>⚡ Load Sample 3D Chair</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- MODE 1: GLB Packer & Texture Optimizer Pipeline Grid -->
+          <div class="converter-pipeline-grid" id="packerPipelineGrid" style="display: none;">
+            
+            <!-- LEFT COLUMN: Assets & Texture Optimizer -->
+            <div class="pipeline-col-left">
+              
+              <!-- Card 1: Core Model Assets -->
+              <div class="pipeline-card" id="coreAssetsCard">
+                <div class="pipeline-card-header">
+                  <div class="pipeline-card-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Core Model Assets</span>
+                  </div>
+                  <span class="pipeline-badge" id="coreAssetsCountBadge">0 Files</span>
+                </div>
+                <div id="coreAssetsList">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Card 2: Texture Optimizer -->
+              <div class="pipeline-card" id="textureOptimizerCard">
+                <div class="pipeline-card-header">
+                  <div class="pipeline-card-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <span>Texture Optimizer</span>
+                  </div>
+                  <span class="pipeline-badge" id="texturesCountBadge" style="color: #00d9ff; border-color: rgba(0, 217, 255, 0.3);">0 Textures</span>
+                </div>
+
+                <!-- Global Compression Controls -->
+                <div class="texture-global-box">
+                  <div class="texture-global-header">
+                    <span class="texture-global-title">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                      Batch Optimization Settings
+                    </span>
+                    <span class="texture-global-tag">WebP / JPG Engine</span>
+                  </div>
+                  
+                  <div class="control-row">
+                    <span class="control-label">Target Format:</span>
+                    <select id="globalFormatSelect" class="cyber-select">
+                      <option value="webp" selected>WebP (High Compression)</option>
+                      <option value="jpeg">JPEG (Universal)</option>
+                      <option value="png">PNG (Lossless)</option>
+                      <option value="original">Original Format</option>
+                    </select>
+                  </div>
+
+                  <div class="control-row">
+                    <span class="control-label">Quality Level:</span>
+                    <div class="slider-wrap">
+                      <input type="range" id="globalQualitySlider" class="cyber-slider" min="20" max="100" value="80" />
+                      <span class="slider-value-badge" id="globalQualityVal">80%</span>
+                    </div>
+                  </div>
+
+                  <div class="control-row">
+                    <span class="control-label">Max Resolution:</span>
+                    <select id="globalResSelect" class="cyber-select">
+                      <option value="0" selected>Original Size (Preserve)</option>
+                      <option value="2048">Clamp to 2048px (2K)</option>
+                      <option value="1024">Clamp to 1024px (Mobile)</option>
+                      <option value="512">Clamp to 512px (Ultra-fast)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Individual Textures List -->
+                <div id="textureItemList">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Packing Summary & Live 3D Viewport -->
+            <div class="pipeline-col-right">
+              
+              <!-- Card 3: Packing Summary -->
+              <div class="pipeline-card" id="packingSummaryCard">
+                <div class="pipeline-card-header">
+                  <div class="pipeline-card-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Packing Summary</span>
+                  </div>
+                  <span class="savings-badge" id="summarySavingsBadge">⚡ -0% Est.</span>
+                </div>
+
+                <div class="summary-stat-row">
+                  <span class="summary-stat-label">Output Filename:</span>
+                  <input type="text" id="outputFileNameInput" class="cyber-input" value="model-optimized.glb" spellcheck="false" />
+                </div>
+
+                <div class="summary-stat-row">
+                  <span class="summary-stat-label">Uncompressed Total Size:</span>
+                  <span class="summary-stat-value" id="summaryInitialSize">--</span>
+                </div>
+
+                <div class="summary-stat-row">
+                  <span class="summary-stat-label">Optimized Output (Est.):</span>
+                  <span class="summary-stat-value" id="summaryOptimizedSize" style="color: #34d399;">--</span>
+                </div>
+
+                <div class="summary-stat-row">
+                  <span class="summary-stat-label">Texture Channels:</span>
+                  <span class="summary-stat-value" id="summaryChannelsCount">--</span>
+                </div>
+
+                <div class="summary-stat-row">
+                  <span class="summary-stat-label">Target Standards:</span>
+                  <span class="summary-stat-value" style="color: #00d9ff; font-size: 0.78rem;">glTF 2.0 / WebAR</span>
+                </div>
+
+                <!-- Actions Grid -->
+                <div class="summary-actions-grid">
+                  <button type="button" class="btn-reset-tool" id="resetPipelineBtn" title="Clear current model">
+                    Reset
+                  </button>
+                  <button type="button" class="btn-pack-primary" id="startPackGlbBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>Pack &amp; Download GLB</span>
+                  </button>
+                  <button type="button" class="btn-export-zip" id="exportZipBtn" title="Export as ZIP with loose .gltf + .bin + images">
+                    <span>Export ZIP</span>
+                  </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="convertProgressContainer" style="display: none; margin-top: 1.25rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.35rem;">
+                    <span id="convertStatusText" style="color: var(--accent-gold); font-weight: 600;">Compressing textures...</span>
+                    <span id="convertPercentText" style="color: #00d9ff; font-family: var(--font-mono, monospace);">0%</span>
+                  </div>
+                  <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 9999px; overflow: hidden;">
+                    <div id="convertProgressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00d9ff, #10b981); transition: width 0.25s ease;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Integrated Live 3D Viewport -->
+              <div class="pipeline-card" id="liveViewportCard">
+                <div class="pipeline-card-header">
+                  <div class="pipeline-card-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                    <span>Live 3D Viewport</span>
+                  </div>
+                  <span class="pipeline-badge" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">WebGL 2.0</span>
+                </div>
+
+                <div class="live-viewport-container" id="liveViewportContainer">
+                  <!-- Shaders & View Overlay -->
+                  <div class="vp-controls-overlay">
+                    <button type="button" class="vp-btn active" data-vp-mode="lit" title="Full PBR Material">Lit</button>
+                    <button type="button" class="vp-btn" data-vp-mode="wireframe" title="Mesh Topology">Wire</button>
+                    <button type="button" class="vp-btn" data-vp-mode="normals" title="Surface Normals">Normals</button>
+                    <button type="button" class="vp-btn" data-vp-mode="clay" title="Clay Shading">Clay</button>
+                    <button type="button" class="vp-btn" id="vpAutoRotateBtn" title="Toggle Auto-Rotation">⟳ Rotate</button>
+                  </div>
+
+                  <!-- Canvas -->
+                  <canvas id="liveViewportCanvas" class="live-3d-canvas"></canvas>
+
+                  <!-- Loading / Placeholder -->
+                  <div id="viewportLoader" style="position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(11, 17, 32, 0.7); backdrop-filter: blur(4px);">
+                    <div style="color: #00d9ff; font-weight: 600; font-size: 0.88rem; display: flex; align-items: center; gap: 0.5rem;">
+                      <span class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></span>
+                      <span>Rendering 3D Mesh...</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Viewport Stats Footer -->
+                <div class="vp-stats-footer">
+                  <div class="vp-stats-item">
+                    <span>Tris:</span>
+                    <strong id="vpTrisCount" style="color: var(--text-primary);">0</strong>
+                  </div>
+                  <div class="vp-stats-item">
+                    <span>Verts:</span>
+                    <strong id="vpVertsCount" style="color: var(--text-primary);">0</strong>
+                  </div>
+                  <div class="vp-stats-item">
+                    <span class="badge badge-emerald" id="vpArReadyBadge" style="font-size: 0.68rem; padding: 0.1rem 0.4rem;">AR Ready ✓</span>
+                  </div>
+                  <a href="viewer.html" class="vp-open-ar-link" title="Open in dedicated viewer with AR QuickLook">
+                    <span>Full Viewer &rarr;</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- MODE 2: GLB Unpacker Container -->
+          <div id="unpackerPipelineContainer" style="display: none; margin-top: 1rem;">
+            <div class="pipeline-card">
+              <div class="pipeline-card-header">
+                <div class="pipeline-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="M12 12v9"></path><path d="m8 17 4 4 4-4"></path></svg>
+                  <span>GLB Unpacker &amp; Asset Extractor</span>
+                </div>
+                <span class="pipeline-badge" id="unpackerFileBadge">No File</span>
+              </div>
+
+              <div id="unpackerDetailsBox" style="display: none;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+                  <div class="asset-item-row" style="margin-bottom: 0;">
+                    <div class="asset-item-left">
+                      <div class="asset-icon-box asset-icon-glb">GLB</div>
+                      <div class="asset-details">
+                        <span class="asset-filename" id="unpackerModelName">model.glb</span>
+                        <span class="asset-filesize" id="unpackerModelSize">0 KB</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="asset-item-row" style="margin-bottom: 0;">
+                    <div class="asset-item-left">
+                      <div class="asset-icon-box asset-icon-gltf">ZIP</div>
+                      <div class="asset-details">
+                        <span class="asset-filename">Bundle Archive</span>
+                        <span class="asset-filesize" id="unpackerExtractedStats">.gltf + .bin + textures</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h4 style="font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.6rem;">Extracted Assets Preview:</h4>
+                <div id="unpackerFilesList" style="max-height: 240px; overflow-y: auto; margin-bottom: 1.25rem;">
+                  <!-- List of unpacked items -->
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; align-items: center;">
+                  <button type="button" class="btn-reset-tool" id="resetUnpackerBtn">Reset</button>
+                  <button type="button" class="btn-pack-primary" id="startUnpackZipBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>
+                    <span>Download glTF ZIP Bundle</span>
+                  </button>
+                </div>
+              </div>
+
+              <div id="unpackerEmptyPrompt" style="text-align: center; padding: 2rem 1rem; color: var(--text-muted);">
+                <p style="font-size: 0.92rem; margin-bottom: 0.5rem; color: var(--text-secondary);">Select or drop a <code>.glb</code> file into the drop area above.</p>
+                <p style="font-size: 0.82rem; color: var(--text-secondary);">The unpacker will extract the internal JSON scene descriptor, geometry buffers, and uncompressed texture maps into a standard glTF bundle.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Benefits Box -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div class="glass-panel" style="padding: 1.5rem;">
+            <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Why Package to GLB?</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              GLB bundles all meshes, animations, and textures into a single binary file. It is the standardized format for Shopify 3D, Apple QuickLook AR, Android Scene Viewer, and Facebook/Instagram 3D posts.
+            </p>
+          </div>
+
+          <div class="glass-panel" style="padding: 1.5rem;">
+            <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Privacy & Zero Data Leaks</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Unlike online converters that store your models on cloud servers, this tool executes Three.js GLTFExporter directly in Web Workers inside your RAM. Your files never touch a server.
+            </p>
+          </div>
+
+          <div class="glass-panel" style="padding: 1.5rem;">
+            <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Support for PBR Textures</h4>
+            <p style="font-size: 0.88rem; color: var(--text-secondary);">
+              Preserves Base Color, Roughness, Metallic, Normal Maps, Emissive, and Ambient Occlusion channels correctly without loss of color space.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+            <div class="brand-title">
+              <span class="brand-name">MUSTAFA JAMAL</span>
+              <span class="brand-tag">3D Studio & Tools</span>
+            </div>
+          </a>
+          <p>
+            3D visualization studio creating production-ready assets for product launches, e-commerce, AR, and real-time applications.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://www.linkedin.com/in/mustafa-jamal-85905423b" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <img src="assets/images/social/linkedin.png" alt="LinkedIn" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://www.behance.net/Mustafagamal3D" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Behance" title="Behance">
+              <img src="assets/images/social/behance.png" alt="Behance" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="WhatsApp" title="WhatsApp">
+              <img src="assets/images/social/whatsapp.png" alt="WhatsApp" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="mailto:mustafagamal.3d@gmail.com" class="social-icon-btn" aria-label="Email" title="Email">
+              <img src="assets/images/social/email.png" alt="Email" width="22" height="22" class="social-icon-img">
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio Showcase</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="tools.html">Free 3D Tools</a></li>
+            <li><a href="about.html">About & Pipeline</a></li>
+            <li><a href="contact.html">Request a Quote</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Free 3D Tools</h4>
+          <ul class="footer-links">
+            <li><a href="viewer.html">3D & AR Viewer</a></li>
+            <li><a href="converter.html">GLTF ↔ GLB Packager</a></li>
+            <li><a href="texture-tool.html">Normal Map Generator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Client Inquiries</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Ready to discuss your project specifications? Response within 24 hours.
+          </p>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="width: 100%;">
+            Start Project Request
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="currentYear">2026</span> Mustafa Jamal. All Rights Reserved. Built with 100% Client-Side WebGL Architecture.
+        </div>
+        <div>
+          Hosted on Cloudflare Pages &bull; Zero Server Footprint
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
+  <script type="module" src="js/converter.js?v=7.0"></script>
+  <!-- Floating Quick Contact Speed Dial (Logos Only) -->
+  <div class="floating-contact-widget" id="floatingContactWidget">
+    
+    <!-- Action Icons Stack (Logos Only - Vertical Alignment) -->
+    <div class="floating-contact-items" id="floatingContactItems" style="position: absolute; bottom: 68px; right: 1px; display: none; flex-direction: column; align-items: center; gap: 12px; z-index: 99999999;">
+      <!-- Phone Call -->
+      <a href="tel:+201092438320" class="floating-contact-btn btn-phone" aria-label="Call Mobile" title="Call: +20 109 243 8320" style="width: 52px; height: 52px; border-radius: 50%; background: #46e88d; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(70, 232, 141, 0.45); text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/>
+        </svg>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="floating-contact-btn btn-whatsapp" aria-label="WhatsApp" title="WhatsApp: +20 120 355 1756" style="width: 52px; height: 52px; border-radius: 50%; background: #61e774; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(97, 231, 116, 0.45); text-decoration: none;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.63C8.75 21.41 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM16.63 15.71C16.44 16.24 15.69 16.67 15.08 16.74C14.67 16.79 14.13 16.82 12.31 16.07C10.01 15.11 8.52 12.78 8.4 12.63C8.29 12.48 7.45 11.36 7.45 10.2C7.45 9.04 8.04 8.47 8.28 8.23C8.48 8.03 8.75 7.95 9.01 7.95C9.1 7.95 9.18 7.95 9.25 7.96C9.47 7.97 9.58 7.98 9.72 8.32C9.9 8.75 10.33 9.81 10.39 9.92C10.44 10.03 10.49 10.17 10.42 10.32C10.35 10.47 10.3 10.55 10.19 10.68C10.08 10.81 9.96 10.91 9.84 11.06C9.72 11.19 9.59 11.33 9.73 11.57C9.87 11.81 10.36 12.61 11.08 13.25C12.01 14.08 12.77 14.34 13.04 14.45C13.26 14.54 13.48 14.52 13.64 14.34C13.84 14.11 14.1 13.74 14.33 13.41C14.5 13.17 14.71 13.2 14.94 13.29C15.17 13.38 16.4 13.99 16.65 14.11C16.9 14.23 17.07 14.29 17.13 14.39C17.19 14.49 17.19 15.01 16.63 15.71Z"/>
+        </svg>
+      </a>
+
+      <!-- Direct Email -->
+      <a href="mailto:mustafagamal.3d@gmail.com" class="floating-contact-btn btn-email" aria-label="Email" title="Email: mustafagamal.3d@gmail.com" style="width: 52px; height: 52px; border-radius: 50%; background: #f63f62; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(246, 63, 98, 0.45); text-decoration: none;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M22 6L12 13L2 6"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Toggle Action (Pill + Circle Button) -->
+    <div style="position: relative; display: flex; align-items: center;">
+      <!-- Speech Bubble Pill: Contact us -->
+      <div id="floatingContactPill" class="floating-contact-pill" onclick="toggleFloatingContact(event)">
+        Contact us
+      </div>
+
+      <!-- Main Toggle Button -->
+      <button type="button" id="floatingToggleBtn" class="floating-toggle-btn" onclick="toggleFloatingContact(event)" aria-label="Toggle Quick Contact Options" title="Quick Contact">
+        <span id="floatingIconChat" style="display: flex; align-items: center; justify-content: center;">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 9H7v-2h10v2zm-4 4H7v-2h6v2zm4-8H7V5h10v2z"/>
+          </svg>
+        </span>
+        <span id="floatingIconClose" style="display: none; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function toggleFloatingContact(e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
+      var widget = document.getElementById('floatingContactWidget');
+      var items = document.getElementById('floatingContactItems');
+      var pill = document.getElementById('floatingContactPill');
+      var iconChat = document.getElementById('floatingIconChat');
+      var iconClose = document.getElementById('floatingIconClose');
+      
+      if (!widget || !items) return;
+      var isOpen = widget.classList.contains('is-open');
+      if (isOpen) {
+        widget.classList.remove('is-open');
+        items.style.display = 'none';
+        if (pill) pill.style.display = 'block';
+        if (iconChat) iconChat.style.display = 'flex';
+        if (iconClose) iconClose.style.display = 'none';
+      } else {
+        widget.classList.add('is-open');
+        items.style.display = 'flex';
+        items.style.opacity = '1';
+        items.style.visibility = 'visible';
+        items.style.pointerEvents = 'auto';
+        if (pill) pill.style.display = 'none';
+        if (iconChat) iconChat.style.display = 'none';
+        if (iconClose) iconClose.style.display = 'flex';
+      }
+    }
+    document.addEventListener('click', function(e) {
+      var w = document.getElementById('floatingContactWidget');
+      if (w && w.classList.contains('is-open') && !w.contains(e.target)) {
+        toggleFloatingContact(e);
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var w = document.getElementById('floatingContactWidget');
+        if (w && w.classList.contains('is-open')) {
+          toggleFloatingContact(e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

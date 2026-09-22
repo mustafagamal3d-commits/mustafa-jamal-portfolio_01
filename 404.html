@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | Mustafa Jamal 3D Studio</title>
+  <meta name="robots" content="noindex, follow">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doppio+One&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/design-system.css?v=7.0">
+  <link rel="stylesheet" href="css/main.css?v=7.0">
+  <link rel="stylesheet" href="css/components.css?v=7.0">
+  <link rel="stylesheet" href="css/tools.css?v=7.0">
+
+  <style>
+    .error-hero {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-3xl) var(--space-md);
+      position: relative;
+    }
+    .error-glitch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: var(--accent-rose);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-md);
+    }
+    .error-code {
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: var(--space-sm);
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.4) 50%, rgba(229,169,59,0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .error-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: var(--space-md);
+    }
+    .error-desc {
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto var(--space-2xl);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .error-links-grid {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container container-wide">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+          <div class="brand-title">
+            <span class="brand-name">MUSTAFA JAMAL</span>
+            <span class="brand-tag">3D Studio</span>
+          </div>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="portfolio.html" class="nav-link">Portfolio</a>
+          
+          <!-- Services Dropdown -->
+          <div class="nav-dropdown-wrapper">
+            <a href="services.html" class="nav-link nav-dropdown-trigger" id="navServicesTrigger">
+              <span>Services</span>
+              <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <div class="nav-dropdown-menu">
+              <div class="dropdown-col">
+                <div class="dropdown-col-title">
+                  <span>What I Deliver</span>
+                  <span class="nav-badge-new">8 Services</span>
+                </div>
+                <div class="services-subgrid">
+                  <!-- Col 1: Services 1 to 4 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-product" class="dropdown-item">
+                      <span class="dropdown-item-icon">🛒</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">1. Product Modeling</span>
+                        <span class="dropdown-item-desc">Studio renders &amp; packshots</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-ecommerce" class="dropdown-item">
+                      <span class="dropdown-item-icon">📦</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">2. E-Commerce &amp; Amazon</span>
+                        <span class="dropdown-item-desc">Listing hero &amp; infographics</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-furniture" class="dropdown-item">
+                      <span class="dropdown-item-icon">🪑</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3. Furniture Archviz</span>
+                        <span class="dropdown-item-desc">Interior lifestyle staging</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-motion" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎬</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">4. Marketing Visuals</span>
+                        <span class="dropdown-item-desc">Commercial 3D motion</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- Col 2: Services 5 to 8 -->
+                  <div class="dropdown-links-list">
+                    <a href="services.html#service-ar" class="dropdown-item">
+                      <span class="dropdown-item-icon">📱</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">5. AR-Ready 3D Assets</span>
+                        <span class="dropdown-item-desc">WebAR &amp; GLB / USDZ models</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-printing" class="dropdown-item">
+                      <span class="dropdown-item-icon">🖨️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">6. 3D Print & Prototyping</span>
+                        <span class="dropdown-item-desc">Watertight STL manufacturing</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-realtime" class="dropdown-item">
+                      <span class="dropdown-item-icon">⚡</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">7. Real-Time &amp; Optimization</span>
+                        <span class="dropdown-item-desc">Retopology &amp; PBR baking</span>
+                      </div>
+                    </a>
+                    <a href="services.html#service-game" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎮</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">8. Game Assets</span>
+                        <span class="dropdown-item-desc">Modular props &amp; environments</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-col">
+                <div class="dropdown-tools-highlight">
+                  <div class="dropdown-col-title">
+                    <span>Free 3D Tools</span>
+                    <span class="nav-badge-new">3 Free</span>
+                  </div>
+                  <div class="dropdown-links-list">
+                    <a href="viewer.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">👁️</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">3D & AR Viewer</span>
+                        <span class="dropdown-item-desc">Inspect & AR preview models</span>
+                      </div>
+                    </a>
+                    <a href="converter.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🔄</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">GLTF ↔ GLB Converter</span>
+                        <span class="dropdown-item-desc">100% Client-side packaging</span>
+                      </div>
+                    </a>
+                    <a href="texture-tool.html" class="dropdown-item">
+                      <span class="dropdown-item-icon">🎨</span>
+                      <div class="dropdown-item-content">
+                        <span class="dropdown-item-title">Normal Map Generator</span>
+                        <span class="dropdown-item-desc">Create normal & roughness maps</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="about.html" class="nav-link">About & Stack</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <!-- Language Selector Dropdown -->
+          <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+            <button class="lang-btn" id="langToggleBtn" type="button" aria-label="Select Language" aria-expanded="false" aria-haspopup="true">
+              <svg class="lang-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <span class="lang-current" id="langCurrentCode">EN</span>
+              <svg class="lang-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="lang-dropdown-menu" id="langDropdownMenu" role="listbox" aria-label="Languages">
+              <a href="?lang=en" class="lang-option-item active" data-lang="en" role="option" aria-selected="true">
+                <span class="lang-flag">🇺🇸</span>
+                <span class="lang-label">English</span>
+                <span class="lang-badge">EN</span>
+              </a>
+              <a href="?lang=ar" class="lang-option-item" data-lang="ar" role="option" aria-selected="false" dir="rtl">
+                <span class="lang-flag">🇸🇦</span>
+                <span class="lang-label">العربية</span>
+                <span class="lang-badge">AR</span>
+              </a>
+              <a href="?lang=de" class="lang-option-item" data-lang="de" role="option" aria-selected="false">
+                <span class="lang-flag">🇩🇪</span>
+                <span class="lang-label">Deutsch</span>
+                <span class="lang-badge">DE</span>
+              </a>
+              <a href="?lang=it" class="lang-option-item" data-lang="it" role="option" aria-selected="false">
+                <span class="lang-flag">🇮🇹</span>
+                <span class="lang-label">Italiano</span>
+                <span class="lang-badge">IT</span>
+              </a>
+              <a href="?lang=fr" class="lang-option-item" data-lang="fr" role="option" aria-selected="false">
+                <span class="lang-flag">🇫🇷</span>
+                <span class="lang-label">Français</span>
+                <span class="lang-badge">FR</span>
+              </a>
+              <a href="?lang=tr" class="lang-option-item" data-lang="tr" role="option" aria-selected="false">
+                <span class="lang-flag">🇹🇷</span>
+                <span class="lang-label">Türkçe</span>
+                <span class="lang-badge">TR</span>
+              </a>
+              <a href="?lang=zh" class="lang-option-item" data-lang="zh" role="option" aria-selected="false">
+                <span class="lang-flag">🇨🇳</span>
+                <span class="lang-label">中文</span>
+                <span class="lang-badge">ZH</span>
+              </a>
+              <a href="?lang=es" class="lang-option-item" data-lang="es" role="option" aria-selected="false">
+                <span class="lang-flag">🇪🇸</span>
+                <span class="lang-label">Español</span>
+                <span class="lang-badge">ES</span>
+              </a>
+            </div>
+          </div>
+
+          <a href="contact.html" class="btn btn-primary btn-sm" id="headerHireMeBtn">
+            <span>Get a Quote</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="error-hero">
+      <div class="container">
+        <div class="error-glitch-badge">
+          <span>●</span> 3D Coordinate / Mesh Not Found
+        </div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">This Page Has Not Been Rendered</h1>
+        <p class="error-desc">
+          The vertex path you followed does not exist in this 3D viewport. It may have been moved, renamed, or converted to a different format.
+        </p>
+
+        <div class="error-links-grid">
+          <a href="index.html" class="btn btn-primary btn-lg">
+            <span>&larr; Return to Home</span>
+          </a>
+          <a href="portfolio.html" class="btn btn-secondary btn-lg">
+            <span>Explore Portfolio Showcase &rarr;</span>
+          </a>
+          <a href="tools.html" class="btn btn-ghost btn-lg">
+            <span>Free 3D Tools</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img" width="48" height="36">
+            <div class="brand-title">
+              <span class="brand-name">MUSTAFA JAMAL</span>
+              <span class="brand-tag">3D Studio & Tools</span>
+            </div>
+          </a>
+          <p>
+            3D visualization studio creating production-ready assets for product launches, e-commerce, AR, and real-time applications.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://www.linkedin.com/in/mustafa-jamal-85905423b" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <img src="assets/images/social/linkedin.png" alt="LinkedIn" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://www.behance.net/Mustafagamal3D" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Behance" title="Behance">
+              <img src="assets/images/social/behance.png" alt="Behance" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="WhatsApp" title="WhatsApp">
+              <img src="assets/images/social/whatsapp.png" alt="WhatsApp" width="22" height="22" class="social-icon-img">
+            </a>
+            <a href="mailto:mustafagamal.3d@gmail.com" class="social-icon-btn" aria-label="Email" title="Email">
+              <img src="assets/images/social/email.png" alt="Email" width="22" height="22" class="social-icon-img">
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio Showcase</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="tools.html">Free 3D Tools</a></li>
+            <li><a href="about.html">About & Pipeline</a></li>
+            <li><a href="contact.html">Request a Quote</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Free 3D Tools</h4>
+          <ul class="footer-links">
+            <li><a href="viewer.html">3D & AR Viewer</a></li>
+            <li><a href="converter.html">GLTF ↔ GLB Packager</a></li>
+            <li><a href="texture-tool.html">Normal Map Generator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Client Inquiries</h4>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Ready to discuss your project specifications? Response within 24 hours.
+          </p>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="width: 100%;">
+            Start Project Request
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="currentYear">2026</span> Mustafa Jamal. All Rights Reserved. Built with 100% Client-Side WebGL Architecture.
+        </div>
+        <div>
+          Hosted on Cloudflare Pages &bull; Zero Server Footprint
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
+  <!-- Floating Quick Contact Speed Dial (Logos Only) -->
+  <div class="floating-contact-widget" id="floatingContactWidget">
+    
+    <!-- Action Icons Stack (Logos Only - Vertical Alignment) -->
+    <div class="floating-contact-items" id="floatingContactItems" style="position: absolute; bottom: 68px; right: 1px; display: none; flex-direction: column; align-items: center; gap: 12px; z-index: 99999999;">
+      <!-- Phone Call -->
+      <a href="tel:+201092438320" class="floating-contact-btn btn-phone" aria-label="Call Mobile" title="Call: +20 109 243 8320" style="width: 52px; height: 52px; border-radius: 50%; background: #46e88d; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(70, 232, 141, 0.45); text-decoration: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/>
+        </svg>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/201203551756" target="_blank" rel="noopener noreferrer" class="floating-contact-btn btn-whatsapp" aria-label="WhatsApp" title="WhatsApp: +20 120 355 1756" style="width: 52px; height: 52px; border-radius: 50%; background: #61e774; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(97, 231, 116, 0.45); text-decoration: none;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.63C8.75 21.41 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM16.63 15.71C16.44 16.24 15.69 16.67 15.08 16.74C14.67 16.79 14.13 16.82 12.31 16.07C10.01 15.11 8.52 12.78 8.4 12.63C8.29 12.48 7.45 11.36 7.45 10.2C7.45 9.04 8.04 8.47 8.28 8.23C8.48 8.03 8.75 7.95 9.01 7.95C9.1 7.95 9.18 7.95 9.25 7.96C9.47 7.97 9.58 7.98 9.72 8.32C9.9 8.75 10.33 9.81 10.39 9.92C10.44 10.03 10.49 10.17 10.42 10.32C10.35 10.47 10.3 10.55 10.19 10.68C10.08 10.81 9.96 10.91 9.84 11.06C9.72 11.19 9.59 11.33 9.73 11.57C9.87 11.81 10.36 12.61 11.08 13.25C12.01 14.08 12.77 14.34 13.04 14.45C13.26 14.54 13.48 14.52 13.64 14.34C13.84 14.11 14.1 13.74 14.33 13.41C14.5 13.17 14.71 13.2 14.94 13.29C15.17 13.38 16.4 13.99 16.65 14.11C16.9 14.23 17.07 14.29 17.13 14.39C17.19 14.49 17.19 15.01 16.63 15.71Z"/>
+        </svg>
+      </a>
+
+      <!-- Direct Email -->
+      <a href="mailto:mustafagamal.3d@gmail.com" class="floating-contact-btn btn-email" aria-label="Email" title="Email: mustafagamal.3d@gmail.com" style="width: 52px; height: 52px; border-radius: 50%; background: #f63f62; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(246, 63, 98, 0.45); text-decoration: none;">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M22 6L12 13L2 6"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Toggle Action (Pill + Circle Button) -->
+    <div style="position: relative; display: flex; align-items: center;">
+      <!-- Speech Bubble Pill: Contact us -->
+      <div id="floatingContactPill" class="floating-contact-pill" onclick="toggleFloatingContact(event)">
+        Contact us
+      </div>
+
+      <!-- Main Toggle Button -->
+      <button type="button" id="floatingToggleBtn" class="floating-toggle-btn" onclick="toggleFloatingContact(event)" aria-label="Toggle Quick Contact Options" title="Quick Contact">
+        <span id="floatingIconChat" style="display: flex; align-items: center; justify-content: center;">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 9H7v-2h10v2zm-4 4H7v-2h6v2zm4-8H7V5h10v2z"/>
+          </svg>
+        </span>
+        <span id="floatingIconClose" style="display: none; align-items: center; justify-content: center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function toggleFloatingContact(e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
+      var widget = document.getElementById('floatingContactWidget');
+      var items = document.getElementById('floatingContactItems');
+      var pill = document.getElementById('floatingContactPill');
+      var iconChat = document.getElementById('floatingIconChat');
+      var iconClose = document.getElementById('floatingIconClose');
+      
+      if (!widget || !items) return;
+      var isOpen = widget.classList.contains('is-open');
+      if (isOpen) {
+        widget.classList.remove('is-open');
+        items.style.display = 'none';
+        if (pill) pill.style.display = 'block';
+        if (iconChat) iconChat.style.display = 'flex';
+        if (iconClose) iconClose.style.display = 'none';
+      } else {
+        widget.classList.add('is-open');
+        items.style.display = 'flex';
+        items.style.opacity = '1';
+        items.style.visibility = 'visible';
+        items.style.pointerEvents = 'auto';
+        if (pill) pill.style.display = 'none';
+        if (iconChat) iconChat.style.display = 'none';
+        if (iconClose) iconClose.style.display = 'flex';
+      }
+    }
+    document.addEventListener('click', function(e) {
+      var w = document.getElementById('floatingContactWidget');
+      if (w && w.classList.contains('is-open') && !w.contains(e.target)) {
+        toggleFloatingContact(e);
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var w = document.getElementById('floatingContactWidget');
+        if (w && w.classList.contains('is-open')) {
+          toggleFloatingContact(e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

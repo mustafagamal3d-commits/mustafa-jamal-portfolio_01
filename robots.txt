@@ -1,0 +1,7 @@
+# Robots.txt for Mustafa Jamal 3D Studio
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+# Sitemap link
+Sitemap: https://mustafajamal.com/sitemap.xml

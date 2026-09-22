@@ -1,0 +1,28 @@
+# Archives and Backups (Exceed GitHub 100MB file limit)
+*.zip
+*.tar
+*.gz
+*.rar
+
+# Development scratch files and snapshots
+scratch/
+scratch_fonts/
+scratch_*.html
+baseline_v1.0_snapshot/
+snapshots/
+deploy_ready/
+deploy_ready_final/
+
+# Python cache & temp
+__pycache__/
+*.pyc
+*.log
+
+# OS generated files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/

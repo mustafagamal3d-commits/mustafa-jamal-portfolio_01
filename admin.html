@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Admin & Portfolio Manager | Mustafa Jamal</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doppio+One&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/design-system.css?v=7.0">
+  <link rel="stylesheet" href="css/main.css?v=7.0">
+  <link rel="stylesheet" href="css/components.css?v=7.0">
+  <link rel="stylesheet" href="css/tools.css?v=7.0">
+
+  <style>
+    .admin-auth-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .admin-auth-box {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .admin-table th, .admin-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+    }
+    .admin-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    .admin-thumb {
+      width: 72px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      object-fit: contain;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+    }
+    .admin-actions-cell {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .admin-order-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: var(--radius-xs);
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.75rem;
+      padding: 0;
+    }
+    .admin-order-btn:hover:not(:disabled) {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+    }
+    .admin-order-btn:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    /* Visual Gallery Manager */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 0.75rem;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 0.75rem;
+      background: rgba(10, 12, 18, 0.7);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .gallery-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .gallery-card.is-cover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .gallery-card-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      background: #08090d;
+      border-radius: var(--radius-xs);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .gallery-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .gallery-card-actions {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+      margin-top: auto;
+    }
+    .gallery-btn-tool {
+      padding: 0.25rem 0.4rem;
+      font-size: 0.72rem;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .gallery-btn-tool:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    .gallery-btn-tool:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+    .gallery-btn-cover {
+      flex: 1;
+      text-align: center;
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+    .gallery-btn-cover:hover {
+      background: var(--accent-gold) !important;
+      color: #000 !important;
+    }
+    .gallery-btn-cover.active-cover {
+      background: var(--accent-gold);
+      color: #000;
+      border-color: var(--accent-gold);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Security PIN Lock Screen -->
+  <div class="admin-auth-overlay" id="adminAuthOverlay">
+    <div class="admin-auth-box">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(229,169,59,0.15); color: var(--accent-gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Mustafa's Studio Admin</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Please enter your secure 4-digit PIN to manage portfolio projects.
+      </p>
+
+      <form id="adminPinForm">
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <input type="password" id="adminPinInput" class="form-input" placeholder="Default PIN: 2026" style="text-align: center; font-size: 1.25rem; letter-spacing: 0.3em; font-family: var(--font-mono);" required autofocus />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          <span>Unlock Admin Panel</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </form>
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+        Protected &bull; Unauthorized visitors cannot modify site data
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container container-wide">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/brand-logo.png" alt="MJ Mustafa Jamal" class="brand-logo-img">
+          <div class="brand-title">
+            <span class="brand-name">MUSTAFA JAMAL</span>
+            <span class="brand-tag">Studio Admin Panel</span>
+          </div>
+        </a>
+
+        <div class="header-actions">
+          <a href="index.html" class="btn btn-secondary btn-sm" target="_blank" rel="noopener noreferrer">
+            <span>View Live Site</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <button class="btn btn-ghost btn-sm" id="adminLogoutBtn">Lock Panel</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="padding-top: var(--space-xl);">
+      <div class="container container-wide">
+        <!-- Top Controls Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: var(--space-2xl);">
+          <div>
+            <span class="badge badge-gold" style="margin-bottom: 0.5rem;">Visual Content Manager</span>
+            <h1 style="font-size: 2rem; font-weight: 800; color: #fff;">Manage Portfolio Projects</h1>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Add, edit, or remove your 3D visualization projects. Changes apply immediately to your website.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" id="saveToDiskBtn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981; color: #fff; font-weight: 700; box-shadow: 0 4px 14px rgba(16,185,129,0.35);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>💾 حفظ وتثبيت دائم في الكود</span>
+            </button>
+            <button class="btn btn-primary" id="openAddProjectModalBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Add New Project</span>
+            </button>
+            <button class="btn btn-secondary" id="exportDataBtn" title="Download updated portfolio-data.js?v=7.0 to commit to GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export portfolio-data.js?v=7.0</span>
+            </button>
+            <button class="btn btn-ghost" id="resetDemoBtn" style="color: var(--accent-rose); border: 1px solid rgba(244,63,94,0.3);">
+              Reset to Defaults
+            </button>
+          </div>
+        </div>
+
+        <!-- How It Works Callout -->
+        <div class="glass-panel" style="padding: 1.25rem 1.5rem; margin-bottom: 2rem; border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.05); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(56,189,248,0.2); color: var(--accent-cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <div>
+              <strong style="color: #fff;">How this works on Cloudflare / GitHub Pages:</strong>
+              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                When you add projects here, they save directly in your browser. When you want to publish them permanently to the world, click <strong>"Export portfolio-data.js?v=7.0"</strong> and replace the file in your repository!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projects Table -->
+        <div class="glass-panel" style="padding: 1.5rem; overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Thumbnail</th>
+                <th>Project Title</th>
+                <th>Category</th>
+                <th>Year</th>
+                <th>Software</th>
+                <th>Features</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProjectsTbody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add / Edit Project Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-dialog" style="max-width: 880px; max-height: 90vh; overflow-y: auto; text-align: left;">
+      <button class="modal-close-btn" id="closeProjectModal">&times;</button>
+      <h3 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem;" id="modalTitle">Add New 3D Project</h3>
+
+      <form id="projectEditorForm">
+        <input type="hidden" id="editProjectId" />
+
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="projTitle">Project Title *</label>
+            <input type="text" id="projTitle" class="form-input" placeholder="e.g. Minimalist Velvet Armchair" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projCategory">Category *</label>
+            <select id="projCategory" class="form-select" required>
+              <option value="product">3D Product Modeling</option>
+              <option value="furniture">Furniture Archviz</option>
+              <option value="ar">Interactive AR / VR</option>
+              <option value="animation">3D Product Animation</option>
+              <option value="printing">3D Printing & Prototyping</option>
+              <option value="packaging">Luxury Packaging</option>
+              <option value="hard-surface">Precision Hard-Surface</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="projClient">Client Name</label>
+            <input type="text" id="projClient" class="form-input" placeholder="e.g. Commercial Brand" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projYear">Year</label>
+            <input type="text" id="projYear" class="form-input" placeholder="2024" value="2024" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projMaterials">Materials & Surface</label>
+            <input type="text" id="projMaterials" class="form-input" placeholder="e.g. Brushed Chrome, Tinted Glass" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="projShortDesc">Short Summary (Shown on Grid Card) *</label>
+          <input type="text" id="projShortDesc" class="form-input" placeholder="Brief 1-line hook about materials, lighting, or usage..." required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="projFullDesc">Full Case Study Description</label>
+          <textarea id="projFullDesc" class="form-textarea" rows="3" placeholder="Detailed story of the modeling challenges, fabric simulation, rendering passes..."></textarea>
+        </div>
+
+        <!-- Visual Media, Cover & Gallery Manager -->
+        <div class="glass-panel" style="padding: 1.25rem; margin: 1.5rem 0; background: rgba(14, 18, 28, 0.85); border: 1px solid rgba(16, 185, 129, 0.35);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <h4 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                <span>Project Media, Cover & Gallery Manager</span>
+                <span class="badge badge-gold" id="galleryCountBadge">0 Images</span>
+              </h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.25rem 0 0;">
+                Click <strong>"★ Set as Cover"</strong> on any image to set the project thumbnail. Use <strong>◀ / ▶</strong> to change image sequence.
+              </p>
+            </div>
+          </div>
+
+          <!-- Active Cover Highlight -->
+          <div style="display: flex; align-items: center; gap: 1rem; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem;">
+            <div style="width: 80px; height: 55px; border-radius: 4px; overflow: hidden; background: #000; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(16, 185, 129, 0.4);">
+              <img id="activeCoverImgPreview" src="" alt="Active Cover" style="width: 100%; height: 100%; object-fit: contain;" />
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span class="badge badge-gold" style="font-size: 0.7rem; font-weight: 700;">★ Active Cover / Thumbnail</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">(Used on Homepage & Portfolio Cards)</span>
+              </div>
+              <div id="activeCoverPathText" style="font-size: 0.8rem; color: #fff; font-family: var(--font-mono); margin-top: 0.3rem; word-break: break-all;">
+                None selected
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery Images Grid -->
+          <div class="gallery-grid" id="adminGalleryGrid">
+            <!-- Dynamically rendered -->
+          </div>
+
+          <!-- Add Image to Gallery -->
+          <div style="margin-top: 1rem; padding: 0.85rem; background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-medium); border-radius: var(--radius-md);">
+            <label class="form-label" style="font-size: 0.85rem; margin-bottom: 0.5rem; display: block;">+ Add Image to this Project</label>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <input type="text" id="newGalleryImgPath" class="form-input" placeholder="e.g. assets/projects/my-project/angle-2.png or URL" style="flex: 1; min-width: 220px; font-size: 0.85rem;" />
+              <label class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Upload File</span>
+                <input type="file" id="newGalleryFileInput" accept="image/*" style="display: none;" />
+              </label>
+              <button type="button" class="btn btn-primary btn-sm" id="addGalleryImgBtn">+ Add to Gallery</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="projClayPath">Clay / Wireframe Image (Optional for Slider)</label>
+            <input type="text" id="projClayPath" class="form-input" placeholder="Click '◫ Wireframe' on any gallery image above" style="font-size: 0.85rem;" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projSoftware">Software (Comma separated)</label>
+            <input type="text" id="projSoftware" class="form-input" placeholder="Blender, Substance 3D Painter, Cycles" />
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label" for="projModelUrl">3D Model GLB (Optional for 3D Viewer)</label>
+            <input type="text" id="projModelUrl" class="form-input" placeholder="assets/models/my-model.glb" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="projVideoUrl">3D Animation Video URL / Path (Optional for MP4 motion reels)</label>
+            <input type="text" id="projVideoUrl" class="form-input" placeholder="assets/projects/.../animation.mp4" />
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('projectModal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveProjectSubmitBtn">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/portfolio-data.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
+  <script>
+    // Security PIN Lock
+    const DEFAULT_PIN = '2026';
+    const authOverlay = document.getElementById('adminAuthOverlay');
+    const pinForm = document.getElementById('adminPinForm');
+    const pinInput = document.getElementById('adminPinInput');
+    const logoutBtn = document.getElementById('adminLogoutBtn');
+
+    if (sessionStorage.getItem('mustafa_admin_authenticated') === 'true') {
+      authOverlay.style.display = 'none';
+    }
+
+    pinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = pinInput.value.trim();
+      const storedPin = localStorage.getItem('mustafa_admin_pin') || DEFAULT_PIN;
+      
+      if (entered === storedPin) {
+        sessionStorage.setItem('mustafa_admin_authenticated', 'true');
+        authOverlay.style.display = 'none';
+        showToast('Welcome back, Mustafa!', 'success');
+        renderAdminTable();
+      } else {
+        showToast('Incorrect PIN code. Please try again.', 'error');
+        pinInput.value = '';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('mustafa_admin_authenticated');
+      authOverlay.style.display = 'flex';
+      pinInput.value = '';
+    });
+
+    // Admin Projects Table Controller
+    let currentProjects = typeof PORTFOLIO_PROJECTS !== 'undefined' ? [...PORTFOLIO_PROJECTS] : [];
+
+    function renderAdminTable() {
+      const tbody = document.getElementById('adminProjectsTbody');
+      tbody.innerHTML = '';
+
+      if (currentProjects.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 2rem; color:var(--text-muted);">No projects found. Click "Add New Project" to create one.</td></tr>`;
+        return;
+      }
+
+      currentProjects.forEach((p, index) => {
+        const tr = document.createElement('tr');
+        const imgCount = (p.gallery && Array.isArray(p.gallery)) ? p.gallery.length + 1 : 1;
+        tr.innerHTML = `
+          <td><img src="${p.thumbnail || p.renderImage}" class="admin-thumb" alt="${p.title}" /></td>
+          <td>
+            <strong>${p.title}</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${p.client || 'Commercial'} &bull; ${imgCount} images</div>
+          </td>
+          <td><span class="badge badge-gold">${p.categoryLabel || p.category}</span></td>
+          <td>${p.year || '2024'}</td>
+          <td><span class="badge badge-gold" style="font-size:0.75rem;">${(p.software && p.software.length) ? p.software.slice(0, 2).join(', ') : 'Blender'}</span></td>
+          <td>
+            ${p.hasComparison ? '<span class="badge badge-cyan" style="font-size:0.65rem;">Wireframe</span> ' : ''}
+            ${p.hasVideo ? '<span class="badge" style="font-size:0.65rem; background:rgba(168,85,247,0.25); color:#c084fc;">Video</span> ' : ''}
+            ${p.has3DModel ? '<span class="badge badge-emerald" style="font-size:0.65rem;">3D Model</span>' : ''}
+          </td>
+          <td class="admin-actions-cell">
+            <button class="admin-order-btn" title="Move Project Up" onclick="moveProjectUp(${index})" ${index === 0 ? 'disabled' : ''}>▲</button>
+            <button class="admin-order-btn" title="Move Project Down" onclick="moveProjectDown(${index})" ${index === currentProjects.length - 1 ? 'disabled' : ''}>▼</button>
+            <button class="btn btn-secondary btn-sm" onclick="editProject('${p.id}')">Edit</button>
+            <button class="btn btn-ghost btn-sm" style="color:var(--accent-rose);" onclick="deleteProject('${p.id}')" title="Delete">&times;</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.moveProjectUp = function(index) {
+      if (index <= 0) return;
+      const temp = currentProjects[index];
+      currentProjects[index] = currentProjects[index - 1];
+      currentProjects[index - 1] = temp;
+      savePortfolioProjects(currentProjects);
+      renderAdminTable();
+      showToast(`Moved "${temp.title}" up`, 'info');
+    };
+
+    window.moveProjectDown = function(index) {
+      if (index >= currentProjects.length - 1) return;
+      const temp = currentProjects[index];
+      currentProjects[index] = currentProjects[index + 1];
+      currentProjects[index + 1] = temp;
+      savePortfolioProjects(currentProjects);
+      renderAdminTable();
+      showToast(`Moved "${temp.title}" down`, 'info');
+    };
+
+    // Modal & Gallery Manager State
+    const modal = document.getElementById('projectModal');
+    const openAddBtn = document.getElementById('openAddProjectModalBtn');
+    const closeModalBtn = document.getElementById('closeProjectModal');
+    const projectForm = document.getElementById('projectEditorForm');
+
+    let currentEditingCover = '';
+    let currentEditingClay = '';
+    let currentEditingGallery = [];
+
+    function renderModalGallery() {
+      const grid = document.getElementById('adminGalleryGrid');
+      const countBadge = document.getElementById('galleryCountBadge');
+      const coverPreview = document.getElementById('activeCoverImgPreview');
+      const coverPathText = document.getElementById('activeCoverPathText');
+
+      // Update Cover Preview
+      if (currentEditingCover) {
+        coverPreview.src = currentEditingCover;
+        coverPathText.textContent = currentEditingCover;
+      } else if (currentEditingGallery.length > 0) {
+        currentEditingCover = currentEditingGallery[0];
+        coverPreview.src = currentEditingCover;
+        coverPathText.textContent = currentEditingCover;
+      } else {
+        coverPreview.src = '';
+        coverPathText.textContent = 'No cover image selected';
+      }
+
+      // Update Clay Path input
+      const clayInput = document.getElementById('projClayPath');
+      if (clayInput) clayInput.value = currentEditingClay || '';
+
+      countBadge.textContent = `${currentEditingGallery.length} Image${currentEditingGallery.length === 1 ? '' : 's'}`;
+
+      if (currentEditingGallery.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem;">No images in this project yet. Add an image path or upload a file below.</div>`;
+        return;
+      }
+
+      grid.innerHTML = currentEditingGallery.map((src, index) => {
+        const isCover = (src === currentEditingCover);
+        const isClay = (src === currentEditingClay);
+        const fileName = src.split('/').pop() || src;
+
+        return `
+          <div class="gallery-card ${isCover ? 'is-cover' : ''}">
+            <div class="gallery-card-thumb-wrap">
+              <img src="${src}" class="gallery-card-thumb" alt="Slide ${index + 1}" />
+              ${isCover ? '<span class="badge badge-gold" style="position: absolute; top: 4px; left: 4px; font-size: 0.65rem; padding: 0.15rem 0.4rem; z-index: 2;">★ Cover</span>' : ''}
+              ${isClay ? '<span class="badge badge-cyan" style="position: absolute; top: 4px; right: 4px; font-size: 0.65rem; padding: 0.15rem 0.4rem; z-index: 2;">Wireframe</span>' : ''}
+            </div>
+            <div class="gallery-card-meta">
+              <span style="font-weight: 600; color: #fff;">#${index + 1}</span>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 105px;" title="${fileName}">${fileName}</span>
+            </div>
+            <div class="gallery-card-actions">
+              <button type="button" class="gallery-btn-tool gallery-btn-cover ${isCover ? 'active-cover' : ''}" onclick="setModalCover('${src}')" title="${isCover ? 'Currently Active Cover' : 'Set as Project Cover'}">
+                ${isCover ? '★ Cover' : 'Set Cover'}
+              </button>
+              <button type="button" class="gallery-btn-tool" title="Move Earlier" onclick="moveGalleryImage(${index}, ${index - 1})" ${index === 0 ? 'disabled' : ''}>◀</button>
+              <button type="button" class="gallery-btn-tool" title="Move Later" onclick="moveGalleryImage(${index}, ${index + 1})" ${index === currentEditingGallery.length - 1 ? 'disabled' : ''}>▶</button>
+              <button type="button" class="gallery-btn-tool" title="Set as Wireframe/Clay Pass" onclick="setModalClay('${src}')" style="color: var(--accent-cyan);">◫</button>
+              <button type="button" class="gallery-btn-tool" title="Remove Image" onclick="removeGalleryImage(${index})" style="color: var(--accent-rose); font-weight: bold;">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.setModalCover = function(src) {
+      currentEditingCover = src;
+      renderModalGallery();
+      showToast('Project cover image updated!', 'info');
+    };
+
+    window.setModalClay = function(src) {
+      if (currentEditingClay === src) {
+        currentEditingClay = '';
+        showToast('Wireframe comparison pass cleared', 'info');
+      } else {
+        currentEditingClay = src;
+        showToast('Image set as Wireframe/Clay slider pass', 'info');
+      }
+      renderModalGallery();
+    };
+
+    window.moveGalleryImage = function(from, to) {
+      if (from < 0 || from >= currentEditingGallery.length || to < 0 || to >= currentEditingGallery.length) return;
+      const temp = currentEditingGallery[from];
+      currentEditingGallery[from] = currentEditingGallery[to];
+      currentEditingGallery[to] = temp;
+      renderModalGallery();
+    };
+
+    window.removeGalleryImage = function(index) {
+      const removed = currentEditingGallery.splice(index, 1)[0];
+      if (removed === currentEditingCover) {
+        currentEditingCover = currentEditingGallery[0] || '';
+      }
+      if (removed === currentEditingClay) {
+        currentEditingClay = '';
+      }
+      renderModalGallery();
+      showToast('Image removed from gallery', 'info');
+    };
+
+    // Add Image to Gallery
+    document.getElementById('addGalleryImgBtn').addEventListener('click', () => {
+      const input = document.getElementById('newGalleryImgPath');
+      const path = input.value.trim();
+      if (!path) {
+        showToast('Please enter an image path or select an image file', 'warning');
+        return;
+      }
+      currentEditingGallery.push(path);
+      if (!currentEditingCover) currentEditingCover = path;
+      input.value = '';
+      renderModalGallery();
+      showToast('Image added to gallery successfully', 'success');
+    });
+
+    document.getElementById('newGalleryFileInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const dataUrl = ev.target.result;
+          currentEditingGallery.push(dataUrl);
+          if (!currentEditingCover) currentEditingCover = dataUrl;
+          renderModalGallery();
+          showToast(`Uploaded ${file.name} to gallery`, 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    openAddBtn.addEventListener('click', () => {
+      projectForm.reset();
+      document.getElementById('editProjectId').value = '';
+      document.getElementById('modalTitle').textContent = 'Add New 3D Project';
+      currentEditingCover = '';
+      currentEditingClay = '';
+      currentEditingGallery = [];
+      renderModalGallery();
+      modal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+    window.editProject = function(id) {
+      const p = currentProjects.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('editProjectId').value = p.id;
+      document.getElementById('projTitle').value = p.title;
+      document.getElementById('projCategory').value = p.category;
+      document.getElementById('projClient').value = p.client || '';
+      document.getElementById('projYear').value = p.year || '2024';
+      document.getElementById('projMaterials').value = p.materials || '';
+      document.getElementById('projShortDesc').value = p.shortDesc || '';
+      document.getElementById('projFullDesc').value = p.fullDesc || '';
+      document.getElementById('projSoftware').value = p.software ? p.software.join(', ') : '';
+      document.getElementById('projModelUrl').value = p.modelUrl || '';
+      document.getElementById('projVideoUrl').value = p.videoUrl || '';
+
+      // Initialize Cover & Gallery state
+      currentEditingCover = p.thumbnail || p.renderImage || '';
+      currentEditingClay = (p.hasComparison && p.clayImage) ? p.clayImage : '';
+
+      if (p.gallery && Array.isArray(p.gallery) && p.gallery.length > 0) {
+        currentEditingGallery = [...p.gallery];
+        // Ensure cover is visible in gallery list
+        if (currentEditingCover && !currentEditingGallery.includes(currentEditingCover)) {
+          currentEditingGallery.unshift(currentEditingCover);
+        }
+      } else if (currentEditingCover) {
+        currentEditingGallery = [currentEditingCover];
+      } else {
+        currentEditingGallery = [];
+      }
+
+      renderModalGallery();
+      document.getElementById('modalTitle').textContent = `Edit: ${p.title}`;
+      modal.classList.add('active');
+    };
+
+    window.deleteProject = function(id) {
+      if (!confirm('Are you sure you want to delete this project?')) return;
+      currentProjects = currentProjects.filter(p => p.id !== id);
+      savePortfolioProjects(currentProjects);
+      renderAdminTable();
+      showToast('Project removed successfully', 'info');
+    };
+
+    projectForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('editProjectId').value;
+      const title = document.getElementById('projTitle').value.trim();
+      const category = document.getElementById('projCategory').value;
+      const client = document.getElementById('projClient').value.trim();
+      const year = document.getElementById('projYear').value.trim();
+      const materials = document.getElementById('projMaterials').value.trim();
+      const shortDesc = document.getElementById('projShortDesc').value.trim();
+      const fullDesc = document.getElementById('projFullDesc').value.trim();
+      const software = document.getElementById('projSoftware').value.split(',').map(s => s.trim()).filter(Boolean);
+      const modelUrl = document.getElementById('projModelUrl').value.trim();
+      const videoUrl = document.getElementById('projVideoUrl').value.trim();
+      const clayManualPath = document.getElementById('projClayPath').value.trim();
+
+      const finalCover = currentEditingCover || (currentEditingGallery.length > 0 ? currentEditingGallery[0] : 'assets/projects/capotoni-curve-armchair/Capotoni-curve-chair_Lifestyle.png');
+      const finalClay = clayManualPath || currentEditingClay || '';
+
+      // Gallery contains all additional slides (excluding the cover itself)
+      const finalGallery = currentEditingGallery.filter(src => src !== finalCover);
+
+      const catLabels = {
+        'product': '3D Product Modeling',
+        'furniture': 'Furniture Archviz',
+        'animation': '3D Product Animation',
+        'printing': '3D Printing & Prototyping',
+        'packaging': 'Luxury Packaging',
+        'hard-surface': 'Precision Hard-Surface'
+      };
+
+      const existingProj = editId ? currentProjects.find(p => p.id === editId) : null;
+
+      const projectObj = {
+        id: editId || ('proj-' + Date.now()),
+        title,
+        category,
+        categoryLabel: catLabels[category] || category,
+        featured: existingProj && existingProj.featured !== undefined ? existingProj.featured : true,
+        year: year || '2024',
+        client: client || 'Commercial',
+        thumbnail: finalCover,
+        renderImage: finalCover,
+        clayImage: finalClay || finalCover,
+        hasComparison: Boolean(finalClay && finalClay !== finalCover),
+        modelUrl: modelUrl || null,
+        has3DModel: Boolean(modelUrl),
+        videoUrl: videoUrl || null,
+        hasVideo: Boolean(videoUrl),
+        shortDesc,
+        fullDesc: fullDesc || shortDesc,
+        materials: materials || (existingProj ? existingProj.materials : 'PBR Shaders'),
+        software: software.length > 0 ? software : (existingProj ? existingProj.software : ['Blender', 'Cycles', 'Substance Painter']),
+        deliverables: existingProj && existingProj.deliverables ? existingProj.deliverables : ['8K Marketing Stills', 'E-Commerce Pack'],
+        gallery: finalGallery
+      };
+
+      if (editId) {
+        const idx = currentProjects.findIndex(p => p.id === editId);
+        if (idx !== -1) currentProjects[idx] = projectObj;
+      } else {
+        currentProjects.unshift(projectObj);
+      }
+
+      savePortfolioProjects(currentProjects);
+      modal.classList.remove('active');
+      renderAdminTable();
+      showToast('Project and gallery saved successfully!', 'success');
+    });
+
+    // Reset Demo
+    document.getElementById('resetDemoBtn').addEventListener('click', () => {
+      if (confirm('Reset all projects back to default portfolio works?')) {
+        resetPortfolioProjects();
+        currentProjects = typeof DEFAULT_PORTFOLIO_PROJECTS !== 'undefined' ? [...DEFAULT_PORTFOLIO_PROJECTS] : [];
+        renderAdminTable();
+        showToast('Portfolio reset to default items', 'info');
+      }
+    });
+
+    // Export portfolio-data.js?v=7.0
+    document.getElementById('exportDataBtn').addEventListener('click', () => {
+      const code = `/**
+ * PORTFOLIO DATASET - MUSTAFA JAMAL
+ * 3D Product Visualization & Modeling | E-Commerce, AR & Real-Time Assets
+ * Exported from Mustafa Jamal Studio Admin
+ */
+const DEFAULT_PORTFOLIO_PROJECTS = ${JSON.stringify(currentProjects, null, 2)};
+
+// Check for custom projects stored locally by admin
+function loadStoredProjects() {
+  try {
+    const saved = localStorage.getItem('mustafa_portfolio_projects_v8');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length >= DEFAULT_PORTFOLIO_PROJECTS.length) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not load stored projects from localStorage:', e);
+  }
+  return DEFAULT_PORTFOLIO_PROJECTS;
+}
+
+let PORTFOLIO_PROJECTS = loadStoredProjects();
+
+function savePortfolioProjects(projects) {
+  try {
+    localStorage.setItem('mustafa_portfolio_projects_v8', JSON.stringify(projects));
+    PORTFOLIO_PROJECTS = projects;
+
+    // Automatically sync to disk via backend dev-server API
+    fetch('/api/save-portfolio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(projects)
+    }).then(r => r.json()).then(data => {
+      console.log('[Auto-Sync] Permanently saved to portfolio-data.js?v=7.0 on disk:', data);
+      showToast('تم حفظ وتثبيت التعديل نهائياً في كود الموقع على الهارد ديسك!', 'success');
+    }).catch(err => {
+      console.warn('[Auto-Sync] Offline or static host:', err);
+    });
+
+    return true;
+  } catch (e) {
+    console.error('Failed to save to localStorage:', e);
+    return false;
+  }
+}
+
+function resetPortfolioProjects() {
+  localStorage.removeItem('mustafa_portfolio_projects_v5');
+  localStorage.removeItem('mustafa_portfolio_projects_v6');
+  localStorage.removeItem('mustafa_portfolio_projects_v8');
+  PORTFOLIO_PROJECTS = DEFAULT_PORTFOLIO_PROJECTS;
+}
+
+if (typeof window !== 'undefined') {
+  window.DEFAULT_PORTFOLIO_PROJECTS = DEFAULT_PORTFOLIO_PROJECTS;
+  window.PORTFOLIO_PROJECTS = PORTFOLIO_PROJECTS;
+  window.savePortfolioProjects = savePortfolioProjects;
+  window.resetPortfolioProjects = resetPortfolioProjects;
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { DEFAULT_PORTFOLIO_PROJECTS, PORTFOLIO_PROJECTS, savePortfolioProjects, resetPortfolioProjects };
+}
+`;
+      const blob = new Blob([code], { type: 'application/javascript' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'portfolio-data.js?v=7.0';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('portfolio-data.js?v=7.0 downloaded! Replace js/portfolio-data.js?v=7.0 to make changes permanent globally.', 'success');
+    });
+
+    // Direct Save & Lock to Disk Button
+    const saveDiskBtn = document.getElementById('saveToDiskBtn');
+    if (saveDiskBtn) {
+      saveDiskBtn.addEventListener('click', async () => {
+        saveDiskBtn.disabled = true;
+        saveDiskBtn.innerHTML = '<span>جاري التثبيت في الكود...</span>';
+        try {
+          const res = await fetch('/api/save-portfolio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentProjects)
+          });
+          if (res.ok) {
+            showToast('تم حفظ وتثبيت كافة المشاريع والكفرات في كود الموقع على الهارد ديسك بنجاح!', 'success');
+          } else {
+            showToast('تم الحفظ في المتصفح فقط. يمكنك تصدير الملف كنسخة احتياطية.', 'warning');
+          }
+        } catch (err) {
+          showToast('تم الحفظ محلياً في المتصفح.', 'info');
+        } finally {
+          saveDiskBtn.disabled = false;
+          saveDiskBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg><span>💾 تم الحفظ والتثبيت الدائم</span>`;
+          setTimeout(() => {
+            saveDiskBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg><span>💾 حفظ وتثبيت دائم في الكود</span>`;
+          }, 3000);
+        }
+      });
+    }
+
+    // Auto-sync stored localStorage to disk on load if available
+    (function autoSyncFromStorage() {
+      try {
+        const saved = localStorage.getItem('mustafa_portfolio_projects_v8');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length >= DEFAULT_PORTFOLIO_PROJECTS.length) {
+            fetch('/api/save-portfolio', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(parsed)
+            }).then(() => console.log('Auto-synced browser arrangement to disk!')).catch(() => {});
+          }
+        }
+      } catch (e) {}
+    })();
+
+    // Initial render
+    renderAdminTable();
+  </script>
+</body>
+</html>
