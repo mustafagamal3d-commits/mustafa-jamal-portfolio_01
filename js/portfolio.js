@@ -78,6 +78,24 @@ function initPortfolioGrid() {
 
 
   // Security string sanitizer against XSS
+    // Translation helper utilizing global i18n dictionary
+  function t(text) {
+    if (!text) return '';
+    if (typeof window.getTranslation === 'function') {
+      return window.getTranslation(text);
+    }
+    const lang = (document.documentElement.lang || 'en').toLowerCase();
+    if (lang === 'en' || !window.SITE_TRANSLATIONS || !window.SITE_TRANSLATIONS[lang]) return text;
+    const dict = window.SITE_TRANSLATIONS[lang];
+    const trimmed = String(text).trim();
+    if (dict[trimmed]) return dict[trimmed];
+    const clean = trimmed.replace(/\s+/g, ' ');
+    if (dict[clean]) return dict[clean];
+    const lowerDict = window.LOWER_CASE_DICTS && window.LOWER_CASE_DICTS[lang];
+    if (lowerDict && lowerDict[clean.toLowerCase()]) return lowerDict[clean.toLowerCase()];
+    return text;
+  }
+
   function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -112,15 +130,19 @@ function initPortfolioGrid() {
       row.setAttribute('data-id', escapeHtml(p.id));
       row.setAttribute('data-category', escapeHtml(p.category));
 
-      const titleEsc = escapeHtml(p.title);
-      const catLabelEsc = escapeHtml(p.categoryLabel || p.category);
+            const rawTitle = p.title || '';
+      const rawCat = p.categoryLabel || p.category || '';
+      const rawDesc = p.shortDesc || p.fullDesc || 'Precision 3D modeling, texturing, and photorealistic CGI rendering.';
+
+      const titleEsc = escapeHtml(t(rawTitle));
+      const catLabelEsc = escapeHtml(t(rawCat));
       const indexStr = String(index + 1).padStart(2, '0');
-      const descEsc = escapeHtml(p.shortDesc || (p.fullDesc ? p.fullDesc.slice(0, 180) + '...' : 'Precision 3D modeling, texturing, and photorealistic CGI rendering.'));
+      const descEsc = escapeHtml(t(rawDesc));
 
       // Check for video cover (e.g. Anything Speaker, Monster Energy, AR/VR 360)
       const isVideo = Boolean((p.category === 'animation' || p.category === 'ar') && p.hasVideo && (p.coverVideoUrl || p.videoUrl));
       const cardVideoSrc = p.coverVideoUrl || p.videoUrl;
-      const badgeText = p.category === 'ar' ? '360° TURNTABLE' : 'CINEMATIC REEL';
+      const badgeText = p.category === 'ar' ? t('360° TURNTABLE') : t('CINEMATIC REEL');
 
       const mediaHtml = isVideo
         ? `
@@ -192,6 +214,11 @@ function initPortfolioGrid() {
     } else {
       cardVideos.forEach(vid => vid.play().catch(() => {}));
     }
+
+    // Re-apply site language to dynamic cards
+    if (typeof window.reapplyLanguage === 'function') {
+      window.reapplyLanguage();
+    }
   }
 
   // Responsive re-flow on window resize
@@ -205,6 +232,13 @@ function initPortfolioGrid() {
 
   // 5. Lightbox / Quick Preview Implementation
   initQuickPreviewModal();
+
+  // Listen for language change to update cards and filters dynamically
+  window.addEventListener('languageChanged', () => {
+    if (typeof window.reapplyLanguage === 'function') {
+      window.reapplyLanguage();
+    }
+  });
 }
 
 function initQuickPreviewModal() {

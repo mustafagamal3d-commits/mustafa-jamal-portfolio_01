@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initProjectDetailPage() {
+  // Translation helper utilizing global i18n dictionary
+  function t(text) {
+    if (!text) return '';
+    if (typeof window.getTranslation === 'function') {
+      return window.getTranslation(text);
+    }
+    const lang = (document.documentElement.lang || 'en').toLowerCase();
+    if (lang === 'en' || !window.SITE_TRANSLATIONS || !window.SITE_TRANSLATIONS[lang]) return text;
+    const dict = window.SITE_TRANSLATIONS[lang];
+    const trimmed = String(text).trim();
+    if (dict[trimmed]) return dict[trimmed];
+    const clean = trimmed.replace(/\s+/g, ' ');
+    if (dict[clean]) return dict[clean];
+    const lowerDict = window.LOWER_CASE_DICTS && window.LOWER_CASE_DICTS[lang];
+    if (lowerDict && lowerDict[clean.toLowerCase()]) return lowerDict[clean.toLowerCase()];
+    return text;
+  }
+
   if (typeof PORTFOLIO_PROJECTS === 'undefined') return;
 
   // 1. Get project ID from URL parameters
@@ -21,9 +39,12 @@ function initProjectDetailPage() {
   const titleEl = document.getElementById('projectTitle');
   const catEl = document.getElementById('projectCategory');
   const descEl = document.getElementById('projectDescription');
-  if (titleEl) titleEl.textContent = project.title;
-  if (catEl) catEl.textContent = project.categoryLabel || '3D Showcase';
-  if (descEl) descEl.textContent = project.fullDesc;
+  function updateProjectTexts() {
+    if (titleEl) titleEl.textContent = t(project.title);
+    if (catEl) catEl.textContent = t(project.categoryLabel || '3D Showcase');
+    if (descEl) descEl.textContent = t(project.fullDesc || project.shortDesc);
+  }
+  updateProjectTexts();
 
   // 3. Setup Video Showcase (Single reel or Multi-turntable switcher)
   const videoContainer = document.getElementById('projectVideoContainer');
@@ -296,6 +317,20 @@ function initProjectDetailPage() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && commissionModal && commissionModal.classList.contains('active')) {
       closeCommissionModal();
+    }
+  });
+
+  // Re-apply site language to dynamically injected project details
+  if (typeof window.reapplyLanguage === 'function') {
+    window.reapplyLanguage();
+  }
+
+  window.addEventListener('languageChanged', () => {
+    if (typeof updateProjectTexts === 'function') {
+      updateProjectTexts();
+    }
+    if (typeof window.reapplyLanguage === 'function') {
+      window.reapplyLanguage();
     }
   });
 }
